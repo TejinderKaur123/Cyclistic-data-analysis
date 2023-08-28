@@ -1,8 +1,5 @@
 # Cyclistic-Data-Analysis
-Cyclistic is a fictional bike share company in Chicago. I am a junior data analyst working in the marketing analyst team. The director of
-marketing believes the company’s future success depends on maximizing the number of annual memberships. Therefore, My
-team wants to understand how casual riders and annual members use Cyclistic bikes differently. From these insights, My team will
-design a new marketing strategy to convert casual riders into annual members.
+Cyclistic is a fictional bike share company in Chicago. I am a junior data analyst working in the marketing analyst team. The director of marketing believes the company’s future success depends on maximizing the number of annual memberships. Therefore, My team wants to understand how casual riders and annual members use Cyclistic bikes differently. From these insights, My team will design a new marketing strategy to convert casual riders into annual members.
 ## Ask
 Three questions will guide the future marketing program:
 1. How do annual members and casual riders use Cyclistic bikes differently?
@@ -19,9 +16,27 @@ I have Cyclistic historical trip data monthly as well as quarterly and station d
 I have downloaded the monthly from July 2022 to June 2023. The data is in csv format. All the files are downloaded in the 'Original' folder under the main project folder. I kept the same naming convention that is 'YYYMM-file-name.csv' to save them.
 
 ### Data Credibility
-The dataset is public and is made available from Motivate International Inc. This is a first party data as directed. The datasets are appropriate, reliable and comprehensive as directed. The data is up to date.The data is current and cited. Hence, data is credible.
+The dataset is public and is made available by Motivate International Inc. This is a first party data as directed. The datasets are appropriate, reliable and comprehensive as directed. The data is up to date.The data is current and cited. Hence, data is credible.
 
-### Data Privacy Issues
+### Data Privacy and Bias Issues
 The data-privacy issues prohibit from using rider's personally identifiable information. This means that
-I won’t be able to connect pass purchases to credit card numbers to determine if casual riders live in the Cyclistic service area or if they have purchased multiple single passes.
+I won’t be able to connect pass purchases to credit card numbers to determine if casual riders live in the Cyclistic service area or if they have purchased multiple single passes. There are no bias issues. (The sample of one year of data was used without any criteria)
+### Data Integrity
 
+## Process
+Since, the data is available in monthly format. I would combine it as a single dataset with one year of data. I am prefering MySQL over Excel to do so because of the size of the datasets is large. Everysingle data set has more than 200000 rows. MySQL is faster to process large amount of data as compared to Excel.
+Tool used for cleaning and manipulation: MySQL.
+### Uploading the Data
+Uploaded the data to MySQL WorkBench by the following steps:
+1. Create a Schema.
+   ```
+   CREATE SCHEMA `cyclistic_trip_data` ;
+   ```
+2. 
+### Data Combination
+The steps for combining the monthly data to a single dataset with 12 months of data are given below:
+1. Create a new Schema.
+   
+3. Create a table 
+### Data Cleaning
+### verify the cleaned data
