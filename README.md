@@ -34,7 +34,7 @@ Uploaded the data to MySQL WorkBench by the following steps:
    ```
 2. Created a table for each dataset. The column format of the table should match with the original csv file. Used the 
    naming convention 'tripdata_YYYYMM' for naming the tables.
-   ```
+   ```(
    CREATE TABLE `cyclistics_trip_data`.`tripdata_202207` (
   `trip_id` VARCHAR(45) NULL,
   `bike_type` CHAR(20) NULL,
@@ -45,7 +45,7 @@ Uploaded the data to MySQL WorkBench by the following steps:
   `end_station_name` VARCHAR(100) NULL,
   `end_station_id` VARCHAR(50) NULL,
   `customer_type` CHAR(20) NULL;		
-  ```
+  )```
 3. Imported the data using the following command.
   ```
   LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Cyclistic Trip Data 2022-23/original/202207-divvy- 
