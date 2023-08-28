@@ -1,5 +1,5 @@
 # Cyclistic-Data-Analysis
-Cyclistic is a fictional bike share company in Chicago. I am a junior data analyst working in the marketing analyst team. The director of marketing believes the company’s future success depends on maximizing the number of annual memberships. Therefore, My team wants to understand how casual riders and annual members use Cyclistic bikes differently. From these insights, My team will design a new marketing strategy to convert casual riders into annual members.
+Cyclistic is a fictional bike share company in Chicago. I am a junior data analyst working in the marketing analyst team. The director of marketing believes the company’s future success depends on maximizing the number of annual memberships. Therefore, My team wants to understand how casual riders and annual members use Cyclistic bikes differently. From these insights, My team will design a new marketing strategy to convert casual riders into annual members. I sharing a detailed documentation of the analysis.
 ## Ask
 Three questions will guide the future marketing program:
 1. How do annual members and casual riders use Cyclistic bikes differently?
@@ -11,7 +11,7 @@ Moreno(The director of the marketing team and my manager) has assigned me the fi
 Find out how the annual members and casual riders use the Cyclistic Bikes differently. The answer to this question is crucial to find a marketing stretegy for casual riders to join the annual membership hence increasing the number of members which is the goal for company's success. The stakeholders for this task is Moreno who is The director of the marketing team and my manager.
 
 ## Prepare
-I have Cyclistic historical trip data monthly as well as quarterly and station data from past years. I chose the previous 12 months of data to analyse. The datasets covers ride information of every single ride- the ride's start and end time; start and end station id, name and geolocation; type of bike used; customer type. This information will help find the usage differences between casual riders and members.
+I have Cyclistic historical trip data monthly as well as quarterly and station data from past years. I chose the previous 12 months of data to analyse. The datasets cover ride information of every single ride- the ride's start and end time; start and end station id, name and geolocation; type of bike used; customer type. This information will help find the usage differences between casual riders and members.
 ### Data Organization
 I have downloaded the monthly from July 2022 to June 2023. The data is in csv format. All the files are downloaded in the 'Original' folder under the main project folder. I kept the same naming convention that is 'YYYMM-file-name.csv' to save them.
 
@@ -22,7 +22,7 @@ The dataset is public and is made available by Motivate International Inc. This 
 The data-privacy issues prohibit from using rider's personally identifiable information. This means that
 I won’t be able to connect pass purchases to credit card numbers to determine if casual riders live in the Cyclistic service area or if they have purchased multiple single passes. There are no bias issues. (The sample of one year of data was used without any criteria)
 ### Data Integrity
-
+......
 ## Process
 Since, the data is available in monthly format. I would combine it as a single dataset with one year of data. I am prefering MySQL over Excel to do so because of the size of the datasets is large. Everysingle data set has more than 200000 rows. MySQL is faster to process large amount of data as compared to Excel.
 Tool used for cleaning and manipulation: MySQL.
@@ -34,7 +34,7 @@ Uploaded the data to MySQL WorkBench by the following steps:
    ```
 2. Created a table for each dataset. The column format of the table should match with the original csv file. Used the 
    naming convention 'tripdata_YYYYMM' for naming the tables.
-   ~~~
+   ```
    CREATE TABLE `cyclistics_trip_data`.`tripdata_202207`
    (
   `trip_id` VARCHAR(45) NULL,
@@ -47,27 +47,63 @@ Uploaded the data to MySQL WorkBench by the following steps:
   `end_station_id` VARCHAR(50) NULL,
   `customer_type` CHAR(20) NULL
    )		
-   ~~~
+   ```
 3. Imported the data using the following command.
-  ```
-  LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Cyclistic Trip Data 2022-23/original/202207-divvy- 
-  tripdata.csv'
-  INTO TABLE tripdata_202207
-  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
-  LINES TERMINATED BY '\r\n'
-  IGNORE 1 LINES
-  ```
+   ```
+   LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Cyclistic Trip Data 2022-23/original/202207-divvy- 
+   tripdata.csv'
+   INTO TABLE tripdata_202207
+   FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+   LINES TERMINATED BY '\r\n'
+   IGNORE 1 LINES
+   ```
 4. Checked the table and number of rows of the data imported matched the original data.
-  ```
-  SELECT * FROM tripdata_202306;
-  SELECT count(*) FROM tripdata_202306;
-  ```
+   ```
+   SELECT * FROM tripdata_202306;
+   SELECT count(*) FROM tripdata_202306;
+   ```
 5. Repeated above steps to import the data of all the months from July 2022 to June 2023.
 
 ### Data Combination
 The steps for combining the monthly data to a single dataset with 12 months of data are given below:
+1. All the datasets are combined and data is save in the table 'tripdata_202207_202306'
+   ```
+   CREATE TABLE tripdata_202207_202306
+   SELECT * FROM tripdata_202207
+   UNION ALL
+   SELECT * FROM tripdata_202208
+   UNION ALL
+   SELECT * FROM tripdata_202209
+   UNION ALL
+   SELECT * FROM tripdata_202210
+   UNION ALL
+   SELECT * FROM tripdata_202211
+   UNION ALL
+   SELECT * FROM tripdata_202212
+   UNION ALL
+   SELECT * FROM tripdata_202301
+   UNION ALL
+   SELECT * FROM tripdata_202302
+   UNION ALL
+   SELECT * FROM tripdata_202303
+   UNION ALL
+   SELECT * FROM tripdata_202304
+   UNION ALL
+   SELECT * FROM tripdata_202305
+   UNION ALL
+   SELECT * FROM tripdata_202306;
+   ```
+2. Made a copy of the above table. Created a new table and inserted all the values in that table.
+   ```
+   CREATE TABLE tripdata_202207_202206_copy LIKE tripdata_202207_202306;
+   ```
+   ```
+   INSERT INTO tripdata_202207_202206_copy 
+   SELECT * FROM tripdata_202207_202306;
+   ```
 
-   
-3. Create a table 
 ### Data Cleaning
+1. Looking into the table columns and checking the number of rows.
+   
+
 ### verify the cleaned data
