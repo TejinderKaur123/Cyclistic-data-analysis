@@ -96,8 +96,6 @@ The steps for combining the monthly data to a single dataset with 12 months of d
 2. Made a copy of the above table. Created a new table and inserted all the values in that table.
    ```
    CREATE TABLE tripdata_202207_202206_copy LIKE tripdata_202207_202306;
-   ```
-   ```
    INSERT INTO tripdata_202207_202206_copy 
    SELECT * FROM tripdata_202207_202306;
    ```
@@ -105,7 +103,7 @@ The steps for combining the monthly data to a single dataset with 12 months of d
 ### Data Cleaning
 1. Looking into the table columns and checking the number of rows.
    ```DESCRIBE tripdata_202207_202206```
-   ![image](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/6dc3657f-6874-437f-b6ad-a9ef8fb4e65c)
+
 
 
 ### verify the cleaned data
