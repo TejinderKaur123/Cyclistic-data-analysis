@@ -103,6 +103,8 @@ The steps for combining the monthly data to a single dataset with 12 months of d
 ### Data Cleaning
 1. Looking into the table columns and checking the number of rows.
    ```DESCRIBE tripdata_202207_202206```
+   ![image](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/05fa681e-6431-491a-826d- 
+    0dd3d7aa5069)
 
 
 
