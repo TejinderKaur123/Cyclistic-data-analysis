@@ -6,7 +6,7 @@ Three questions will guide the future marketing program:
 2. Why would casual riders buy Cyclistic annual memberships?
 3. How can Cyclistic use digital media to influence casual riders to become members?
 Moreno(The director of the marketing team and my manager) has assigned me the first question to answer: How do annual members and casual riders use Cyclistic bikes differently.
-
+![Screenshot 2023-08-28 191805](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/06f39dcc-1667-4742-b93c-cdc14c405a3b)
 ### Business Task
 Find out how the annual members and casual riders use the Cyclistic Bikes differently. The answer to this question is crucial to find a marketing stretegy for casual riders to join the annual membership hence increasing the number of members which is the goal for company's success. The stakeholders for this task is Moreno who is The director of the marketing team and my manager.
 
@@ -103,8 +103,7 @@ The steps for combining the monthly data to a single dataset with 12 months of d
 ### Data Cleaning
 1. Looking into the table columns and checking the number of rows.
    ```DESCRIBE tripdata_202207_202206```
-   ![image](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/05fa681e-6431-491a-826d- 
-    0dd3d7aa5069)
+![Screenshot 2023-08-28 191805](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/06f39dcc-1667-4742-b93c-cdc14c405a3b)
 
 
 
