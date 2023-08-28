@@ -28,14 +28,43 @@ Since, the data is available in monthly format. I would combine it as a single d
 Tool used for cleaning and manipulation: MySQL.
 ### Uploading the Data
 Uploaded the data to MySQL WorkBench by the following steps:
-1. Create a Schema.
+1. Created a Schema.
    ```
    CREATE SCHEMA `cyclistic_trip_data` ;
    ```
-2. 
+2. Created a table for each dataset. The column format of the table should match with the original csv file. Used the 
+   naming convention 'tripdata_YYYYMM' for naming the tables.
+   ```
+   CREATE TABLE `cyclistics_trip_data`.`tripdata_202207` (
+  `trip_id` VARCHAR(45) NULL,
+  `bike_type` CHAR(20) NULL,
+  `start_date_time` VARCHAR(100) NULL,
+  `end_date_time` VARCHAR(100) NULL,
+  `start_station_name` VARCHAR(100) NULL,
+  `start_station_id` VARCHAR(50) NULL,
+  `end_station_name` VARCHAR(100) NULL,
+  `end_station_id` VARCHAR(50) NULL,
+  `customer_type` CHAR(20) NULL;		
+  ```
+3. Imported the data using the following command.
+  ```
+  LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Cyclistic Trip Data 2022-23/original/202207-divvy- 
+  tripdata.csv'
+  INTO TABLE tripdata_202207
+  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+  LINES TERMINATED BY '\r\n'
+  IGNORE 1 LINES
+  ```
+4. Checked the table and number of rows of the data imported matched the original data.
+  ```
+  SELECT * FROM tripdata_202306;
+  SELECT count(*) FROM tripdata_202306;
+  ```
+5. Repeated above steps to import the data of all the months from July 2022 to June 2023.
+
 ### Data Combination
 The steps for combining the monthly data to a single dataset with 12 months of data are given below:
-1. Create a new Schema.
+
    
 3. Create a table 
 ### Data Cleaning
