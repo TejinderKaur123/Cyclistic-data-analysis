@@ -37,15 +37,15 @@ Uploaded the data to MySQL WorkBench by the following steps:
    ```
    CREATE TABLE `cyclistics_trip_data`.`tripdata_202207`
    (
-  `trip_id` VARCHAR(45) NULL,
-  `bike_type` CHAR(20) NULL,
-  `start_date_time` VARCHAR(100) NULL,
-  `end_date_time` VARCHAR(100) NULL,
-  `start_station_name` VARCHAR(100) NULL,
-  `start_station_id` VARCHAR(50) NULL,
-  `end_station_name` VARCHAR(100) NULL,
-  `end_station_id` VARCHAR(50) NULL,
-  `customer_type` CHAR(20) NULL
+   `trip_id` VARCHAR(45) NULL,
+   `bike_type` CHAR(20) NULL,
+   `start_date_time` VARCHAR(100) NULL,
+    `end_date_time` VARCHAR(100) NULL,
+   `start_station_name` VARCHAR(100) NULL,
+   `start_station_id` VARCHAR(50) NULL,
+   `end_station_name` VARCHAR(100) NULL,
+   `end_station_id` VARCHAR(50) NULL,
+   `customer_type` CHAR(20) NULL
    )		
    ```
 3. Imported the data using the following command.
@@ -127,7 +127,6 @@ The steps for combining the monthly data to a single dataset with 12 months of d
    WHERE trip_id IS NULL;
    ```
    No null values found.
-   ```
    ```
    SELECT * FROM
 	(SELECT trip_id, 
