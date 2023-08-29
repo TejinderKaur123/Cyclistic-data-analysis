@@ -191,7 +191,8 @@ The steps for combining the monthly data to a single dataset with 12 months of d
    The max value of the trip duration is 689 hours 47 mins, which is approximately 29 days and the customer type is casual. 
 7. Made a new column for the day of the week that the ride took place. It give the value from 1 to 7. 1 is Sunday and 7 is Friday.
 8. Checked if all the columns have correct data type.
-   
+   ![image](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/de74d48b-5e1b-4275-af9f-4208e30f3a74)
+
    
 
 ### verify the cleaned data
