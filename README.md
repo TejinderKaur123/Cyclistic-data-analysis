@@ -12,6 +12,7 @@ Find out how the annual members and casual riders use the Cyclistic Bikes differ
 
 ## Prepare
 I have Cyclistic historical trip data monthly as well as quarterly and station data from past years. I chose the previous 12 months of data to analyse. The datasets cover ride information of every single ride- the ride's start and end time; start and end station id, name and geolocation; type of bike used; customer type. This information will help find the usage differences between casual riders and members.
+
 ### Data Organization
 I have downloaded the monthly from July 2022 to June 2023. The data is in csv format. All the files are downloaded in the 'Original' folder under the main project folder. I kept the same naming convention that is 'YYYMM-file-name.csv' to save them.
 
@@ -24,7 +25,7 @@ I won’t be able to connect pass purchases to credit card numbers to determine 
 ### Data Integrity
 ......
 ## Process
-Since, the data is available in monthly format. I would combine it as a single dataset with one year of data. I am prefering MySQL over Excel to do so because of the size of the datasets is large. Everysingle data set has more than 200000 rows. MySQL is faster to process large amount of data as compared to Excel.
+Since, the data is available in monthly format. I am combining it as a single dataset with one year of data. I am prefering MySQL over Excel to do so because of the size of the datasets is large. Every single data set has more than 200000 rows. MySQL is faster to process large amount of data as compared to Excel.
 Tool used for cleaning and manipulation: MySQL.
 ### Uploading the Data
 Uploaded the data to MySQL WorkBench by the following steps:
@@ -40,7 +41,7 @@ Uploaded the data to MySQL WorkBench by the following steps:
    `trip_id` VARCHAR(45) NULL,
    `bike_type` CHAR(20) NULL,
    `start_date_time` VARCHAR(100) NULL,
-    `end_date_time` VARCHAR(100) NULL,
+   `end_date_time` VARCHAR(100) NULL,
    `start_station_name` VARCHAR(100) NULL,
    `start_station_id` VARCHAR(50) NULL,
    `end_station_name` VARCHAR(100) NULL,
@@ -48,7 +49,7 @@ Uploaded the data to MySQL WorkBench by the following steps:
    `customer_type` CHAR(20) NULL
    )		
    ```
-3. Imported the data using the following command.
+3. Imported the data from the csv file to the consequent table.
    ```
    LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Cyclistic Trip Data 2022-23/original/202207-divvy- 
    tripdata.csv'
@@ -66,7 +67,7 @@ Uploaded the data to MySQL WorkBench by the following steps:
 
 ### Data Combining
 The steps for combining the monthly data to a single dataset with 12 months of data are given below:
-1. All the datasets are combined and data is save in the table 'tripdata_202207_202306'
+1. All the datasets are combined and data is saved in the table 'tripdata_202207_202306'
    ```
    CREATE TABLE tripdata_202207_202306
    SELECT * FROM tripdata_202207
@@ -106,21 +107,21 @@ The steps for combining the monthly data to a single dataset with 12 months of d
    DESCRIBE tripdata_202207_202206
    ```
    Datset has the following column:
-   trip_id (varchar)- id of the trip
-   bike_type (char)- has the type of bike used for the ride	
-   start_date_time (varchar)- has the start date and time of the ride	
-   end_date_time	(varchar)- has the end date and time of the ride	
-   start_station_name	(varchar)- has the start station name
-   start_station_id	(varchar)- has the start station id
-   end_station_name	(varchar)- has the end station name
-   end_station_id	(varchar)- has the end station id
-   customer_type	(char)- has the type of customer using the bike
+   trip_id (varchar)- id of the trip.
+   bike_type (char)- has the type of bike used for the ride.	
+   start_date_time (varchar)- has the start date and time of the ride.
+   end_date_time	(varchar)- has the end date and time of the ride.	
+   start_station_name	(varchar)- has the start station name.
+   start_station_id	(varchar)- has the start station id.
+   end_station_name	(varchar)- has the end station name.
+   end_station_id	(varchar)- has the end station id.
+   customer_type	(char)- has the type of customer using the bike.
 
    ```
    SELECT COUNT(*) FROM  tripdata_202207_202206
    ```
    Total number of rows found: 5779444
-2. Checking for duplicate rows and nulls in trip id and make it a primary key.
+2. Checking for duplicate rows and nulls in trip_id and made it a primary key.
    ```
    SELECT COUNT(*) 
    FROM tripdata_202207_202306 
@@ -137,7 +138,8 @@ The steps for combining the monthly data to a single dataset with 12 months of d
     WHERE RowNumber > 1;
     ```    
     Duplicate ids found: 208 values
-    Deleting the rows with duplicate ids after running the select statement inside so I know what I am deleting.
+    Deleting the rows with duplicate ids after running the select statement inside so I know what I am deleting. Number of rows returned 
+    after deleting duplicates = 5779236
     ```
     DELETE FROM tripdata_202207_202306 a
     WHERE a.trip_id IN
@@ -148,9 +150,48 @@ The steps for combining the monthly data to a single dataset with 12 months of d
     (PARTITION BY trip_id 
     ORDER BY (SELECT NULL)) dup
     FROM tripdata_202207_202306) b
-    WHERE b.dup > 1);
+    WHERE b.dup > 1);  
     ```
-    Number of rows returned after deleting duplicates = 5779236
 
+3. Fixing the column format. Changed the columns start_date_time and end_date_time from varchar to datetime. Error found in the year 
+   format of  the date. Some of the years are in 2 digits and some are in 4 digits. To convert into datetime format the 'Y' takes year 
+   in 4 digits. Therefore, set the year format to 4 digits by using regex replace function.
+   ```
+   UPDATE tripdata_202207_202306
+   SET start_date_time = REGEXP_REPLACE(start_date_time, '(\\d+\/\\d+\/)(\\d{2})\\s','$120$2 ');
+
+   UPDATE tripdata_202207_202306
+   SET start_date_time = str_to_date(start_date_time, '%m/%d/%Y %H:%i'),
+   end_date_time = str_to_date(end_date_time, '%m/%d/%Y %H:%i');
+   ```
+4. Checked distinct values of column bike_type and customer_type.
+   bike_type has values:
+   1. electric_bike.
+   2. docked_bike.
+   3. classic_bike.
+   customer_type has values:
+   1. casual.
+   2. member.
+   ```
+   SELECT DISTINCT bike_type
+   FROM tripdata_202207_202306;
+
+   SELECT DISTINCT customer_type
+   FROM tripdata_202207_202306;
+   ```
+5. Made a new column for trip_duration to calculate the duration of the ride by subtracting end_date_time and start_date_time.
+   trip_duration has time format.
+   ```
+   UPDATE tripdata_202207_202306
+   SET trip_duration = timediff(end_date_time,start_date_time);
+   ```
+6. Checking the range of the trip_duration column.
+   Min value of trip duration was negative. Therefore checked the values of trip_duration less than or equal to 0. 88652 records found. 
+   Deleted those from the table.
+   The max value of the trip duration is 689 hours 47 mins, which is approximately 29 days and the customer type is casual. 
+7. Made a new column for the day of the week that the ride took place. It give the value from 1 to 7. 1 is Sunday and 7 is Friday.
+8. Checked if all the columns have correct data type.
+   
+   
 
 ### verify the cleaned data
