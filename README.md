@@ -6,7 +6,6 @@ Three questions will guide the future marketing program:
 2. Why would casual riders buy Cyclistic annual memberships?
 3. How can Cyclistic use digital media to influence casual riders to become members?
 Moreno(The director of the marketing team and my manager) has assigned me the first question to answer: How do annual members and casual riders use Cyclistic bikes differently.
-![Screenshot 2023-08-28 191805](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/06f39dcc-1667-4742-b93c-cdc14c405a3b)
 ### Business Task
 Find out how the annual members and casual riders use the Cyclistic Bikes differently. The answer to this question is crucial to find a marketing stretegy for casual riders to join the annual membership hence increasing the number of members which is the goal for company's success. The stakeholders for this task is Moreno who is The director of the marketing team and my manager.
 
@@ -32,7 +31,7 @@ Uploaded the data to MySQL WorkBench by the following steps:
    ```
    CREATE SCHEMA `cyclistic_trip_data` ;
    ```
-2. Created a table for each dataset. The column format of the table should match with the original csv file. Used the 
+2. Created a table for each dataset. Used the 
    naming convention 'tripdata_YYYYMM' for naming the tables.
    ```
    CREATE TABLE `cyclistics_trip_data`.`tripdata_202207`
@@ -100,10 +99,105 @@ The steps for combining the monthly data to a single dataset with 12 months of d
    SELECT * FROM tripdata_202207_202306;
    ```
 
-### Data Cleaning
+### Data Cleaning and Manipulation
 1. Looking into the table columns and checking the number of rows.
-   ```DESCRIBE tripdata_202207_202206```
-![Screenshot 2023-08-28 191805](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/06f39dcc-1667-4742-b93c-cdc14c405a3b)
+   ```
+   DESCRIBE tripdata_202207_202206
+   ```
+   Datset has the following column:
+   trip_id (varchar)- id of the trip
+   bike_type (char)- has the type of bike used for the ride	
+   start_date_time (varchar)- has the start date and time of the ride	
+   end_date_time	(varchar)- has the end date and time of the ride	
+   start_station_name	(varchar)- has the start station name
+   start_station_id	(varchar)- has the start station id
+   end_station_name	(varchar)- has the end station name
+   end_station_id	(varchar)- has the end station id
+   customer_type	(char)- has the type of customer using the bike
+
+   ```
+   SELECT COUNT(*) FROM  tripdata_202207_202206
+   ```
+   Total number of rows found: 5779444
+2. Checking for duplicate rows and nulls in trip id and make it a primary key.
+   ```
+   SELECT COUNT(*) 
+   FROM tripdata_202207_202306 
+   WHERE trip_id IS NULL;
+   ```
+   No null values found.
+   ```
+   ```
+   SELECT * FROM
+	(SELECT trip_id, 
+           ROW_NUMBER() OVER
+           (PARTITION BY trip_id 
+            ORDER BY (SELECT NULL)) AS RowNumber
+	 FROM tripdata_202207_202206) b
+    WHERE RowNumber > 1;
+    ```    
+    Duplicate ids found: 208 values
+    Deleting the rows with duplicate ids after running the select statement inside so I know what I am deleting.
+    ```
+    DELETE FROM tripdata_202207_202306 a
+    WHERE a.trip_id IN
+    (SELECT trip_id FROM
+    (SELECT
+    trip_id,
+    ROW_NUMBER() OVER
+    (PARTITION BY trip_id 
+    ORDER BY (SELECT NULL)) dup
+    FROM tripdata_202207_202306) b
+    WHERE b.dup > 1);
+    ```
+    Number of rows returned after deleting duplicates = 5779236
+3. 2.	Changed formatting of start_date_time and end_date_time to datetime from varchar.
+UPDATE tripdata_202207to202306 SET start_date_time  =  CONCAT(start_date_time, ':00' );
+UPDATE tripdata_202207to202306 SET end_date_time  =  CONCAT(end_date_time, ':00' );
+
+ERROR IN YEAR FORMAT: some of the dates have year in 2-digit format. Fixing it using regex, since, Y takes 4 digit year format.. We used regexp_replace() function.
+To see what regexp is catching.
+SELECT start_date_time, REGEXP_SUBSTR(start_date_time,'(\\d+\/\\d+\/)(\\d{2})\\s') catch
+ FROM tripdata_202207_202306;
+To see what regexp is replacing:
+SELECT start_date_time, REGEXP_REPLACE(start_date_time, '(\\d+\/\\d+\/)(\\d{2})\\s','$120$2 ') as replaced
+ FROM tripdata_202207_202306;
+
+Everything looks correct. Replacing the values of the column after creating a copy of the column as a backup of the column data.
+UPDATE tripdata_202207_202306
+SET start_date_time = REGEXP_REPLACE(start_date_time, '(\\d+\/\\d+\/)(\\d{2})\\s','$120$2 ');
+823309 row(s) affected Rows matched: 5779237  Changed: 823309  Warnings: 0
+Successfully executed. Now deleting the duplicate column created.
+
+((Now, lets split the column start_date_time into start_date and start_time. Make two new columns start_date and start_time then update the date into them with the following query.
+
+UPDATE tripdata_202207_202306
+SET start_date = substring_index(start_date_time,' ', 1);
+
+UPDATE tripdata_202207_202306
+SET start_time = substring_index(start_date_time,' ', -1)  ))
+Repeat the above steps on end_date_time by fixing the format using regex.
+                  
+Now that we have the date colunms start_date_time and end_date_time in one format, we will change the data type from string to datetime.
+
+SELECT start_date_time, end_date_time, 
+str_to_date(start_date_time, '%m/%d/%Y %H:%i') as converted_date,
+str_to_date(end_date_time, '%m/%d/%Y %H:%i') as enddate
+FROM tripdata_202207_202306;
+
+Check the values then update the table.
+UPDATE tripdata_202207_202306
+SET start_date_time = str_to_date(start_date_time, '%m/%d/%Y %H:%i'),
+end_date_time = str_to_date(end_date_time, '%m/%d/%Y %H:%i');
+
+
+ALTER TABLE `cyclistics_trip_data`.`tripdata_202207_202306` 
+CHANGE COLUMN `start_date_time` `start_date_time` DATETIME(6) NULL DEFAULT NULL ,
+CHANGE COLUMN `end_date_time` `end_date_time` DATETIME(6) NULL DEFAULT NULL ;
+ALTER TABLE `cyclistics_trip_data`.`tripdata_202207_202306` 
+ADD COLUMN `trip_duration` TIME NULL AFTER `end_time`,
+CHANGE COLUMN `start_date_time` `start_date_time` DATETIME(6) NULL DEFAULT NULL ,
+CHANGE COLUMN `end_date_time` `end_date_time` DATETIME(6) NULL DEFAULT NULL ;
 
 
 
