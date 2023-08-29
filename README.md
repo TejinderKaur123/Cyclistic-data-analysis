@@ -1,5 +1,6 @@
 # Cyclistic-Data-Analysis
-Cyclistic is a fictional bike share company in Chicago. I am a junior data analyst working in the marketing analyst team. The director of marketing believes the company’s future success depends on maximizing the number of annual memberships. Therefore, My team wants to understand how casual riders and annual members use Cyclistic bikes differently. From these insights, My team will design a new marketing strategy to convert casual riders into annual members. I sharing a detailed documentation of the analysis.
+## Scenario
+I am a junior data analyst working in the marketing analyst team of Cyclistic - a fictional bike share company in Chicago. The director of marketing believes the company’s future success depends on maximizing the number of annual memberships. Therefore, My team wants to understand how casual riders and annual members use Cyclistic bikes differently. From these insights, My team will design a new marketing strategy to convert casual riders into annual members. I sharing a detailed documentation of the analysis.
 ## Ask
 Three questions will guide the future marketing program:
 1. How do annual members and casual riders use Cyclistic bikes differently?
