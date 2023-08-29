@@ -138,7 +138,7 @@ The steps for combining the monthly data to a single dataset with 12 months of d
     WHERE RowNumber > 1;
     ```    
     Duplicate ids found: 208 values
-    Deleting the rows with duplicate ids after running the select statement inside so I know what I am deleting. Number of rows returned 
+    Deleting the rows with duplicate ids after running the select statement inside so I   know what I am deleting. Number of rows returned 
     after deleting duplicates = 5779236
     ```
     DELETE FROM tripdata_202207_202306 a
@@ -153,12 +153,16 @@ The steps for combining the monthly data to a single dataset with 12 months of d
     WHERE b.dup > 1);  
     ```
 
-3. Fixing the column format. Changed the columns start_date_time and end_date_time from varchar to datetime. Error found in the year 
-   format of  the date. Some of the years are in 2 digits and some are in 4 digits. To convert into datetime format the 'Y' takes year 
-   in 4 digits. Therefore, set the year format to 4 digits by using regex replace function.
+3. Fixing the column format. Changed the columns start_date_time and end_date_time 
+   from varchar to datetime. Error found in the year 
+   format of  the date. Some of the years are in 2 digits and some are in 4 digits. 
+   To convert into datetime format the 'Y' takes year 
+   in 4 digits. Therefore, set the year format to 4 digits by using regex replace 
+   function.
    ```
    UPDATE tripdata_202207_202306
-   SET start_date_time = REGEXP_REPLACE(start_date_time, '(\\d+\/\\d+\/)(\\d{2})\\s','$120$2 ');
+   SET start_date_time = REGEXP_REPLACE(start_date_time, '(\\d+\/\\d+\/) 
+   (\\d{2})\\s','$120$2 ');
 
    UPDATE tripdata_202207_202306
    SET start_date_time = str_to_date(start_date_time, '%m/%d/%Y %H:%i'),
@@ -186,12 +190,27 @@ The steps for combining the monthly data to a single dataset with 12 months of d
    SET trip_duration = timediff(end_date_time,start_date_time);
    ```
 6. Checking the range of the trip_duration column.
-   Min value of trip duration was negative. Therefore checked the values of trip_duration less than or equal to 0. 88652 records found. 
+   Min value of trip duration was negative. Therefore checked the values of 
+   trip_duration less than or equal to 0. 88652 records found. 
    Deleted those from the table.
-   The max value of the trip duration is 689 hours 47 mins, which is approximately 29 days and the customer type is casual. 
-7. Made a new column for the day of the week that the ride took place. It give the value from 1 to 7. 1 is Sunday and 7 is Friday.
+   The max value of the trip duration is 689 hours 47 mins, which is approximately 29 
+   days and the customer type is casual. 
+7. Made a new column for the day of the week that the ride took place. It gives the 
+   value from 1 to 7. 1 is Sunday and 7 is Friday.
 8. Checked if all the columns have correct data type.
-   ![image](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/de74d48b-5e1b-4275-af9f-4208e30f3a74)
+   Datset has the following column and thier data types:
+   trip_id              varchar(50)
+   bike_type            char(20)
+   start_date_time      datetime(6)
+   end_date_time	datetime(6)
+   start_station_id	varchar(50)
+   start_station_name	varchar(100)
+   end_station_id	varchar(50)
+   end_station_name	varchar(100)
+   customer_type	char(45)
+   trip_duration        time
+   trip_day             varchar(45)
+
 
    
 
