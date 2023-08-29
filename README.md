@@ -151,54 +151,6 @@ The steps for combining the monthly data to a single dataset with 12 months of d
     WHERE b.dup > 1);
     ```
     Number of rows returned after deleting duplicates = 5779236
-3. 2.	Changed formatting of start_date_time and end_date_time to datetime from varchar.
-UPDATE tripdata_202207to202306 SET start_date_time  =  CONCAT(start_date_time, ':00' );
-UPDATE tripdata_202207to202306 SET end_date_time  =  CONCAT(end_date_time, ':00' );
-
-ERROR IN YEAR FORMAT: some of the dates have year in 2-digit format. Fixing it using regex, since, Y takes 4 digit year format.. We used regexp_replace() function.
-To see what regexp is catching.
-SELECT start_date_time, REGEXP_SUBSTR(start_date_time,'(\\d+\/\\d+\/)(\\d{2})\\s') catch
- FROM tripdata_202207_202306;
-To see what regexp is replacing:
-SELECT start_date_time, REGEXP_REPLACE(start_date_time, '(\\d+\/\\d+\/)(\\d{2})\\s','$120$2 ') as replaced
- FROM tripdata_202207_202306;
-
-Everything looks correct. Replacing the values of the column after creating a copy of the column as a backup of the column data.
-UPDATE tripdata_202207_202306
-SET start_date_time = REGEXP_REPLACE(start_date_time, '(\\d+\/\\d+\/)(\\d{2})\\s','$120$2 ');
-823309 row(s) affected Rows matched: 5779237  Changed: 823309  Warnings: 0
-Successfully executed. Now deleting the duplicate column created.
-
-((Now, lets split the column start_date_time into start_date and start_time. Make two new columns start_date and start_time then update the date into them with the following query.
-
-UPDATE tripdata_202207_202306
-SET start_date = substring_index(start_date_time,' ', 1);
-
-UPDATE tripdata_202207_202306
-SET start_time = substring_index(start_date_time,' ', -1)  ))
-Repeat the above steps on end_date_time by fixing the format using regex.
-                  
-Now that we have the date colunms start_date_time and end_date_time in one format, we will change the data type from string to datetime.
-
-SELECT start_date_time, end_date_time, 
-str_to_date(start_date_time, '%m/%d/%Y %H:%i') as converted_date,
-str_to_date(end_date_time, '%m/%d/%Y %H:%i') as enddate
-FROM tripdata_202207_202306;
-
-Check the values then update the table.
-UPDATE tripdata_202207_202306
-SET start_date_time = str_to_date(start_date_time, '%m/%d/%Y %H:%i'),
-end_date_time = str_to_date(end_date_time, '%m/%d/%Y %H:%i');
-
-
-ALTER TABLE `cyclistics_trip_data`.`tripdata_202207_202306` 
-CHANGE COLUMN `start_date_time` `start_date_time` DATETIME(6) NULL DEFAULT NULL ,
-CHANGE COLUMN `end_date_time` `end_date_time` DATETIME(6) NULL DEFAULT NULL ;
-ALTER TABLE `cyclistics_trip_data`.`tripdata_202207_202306` 
-ADD COLUMN `trip_duration` TIME NULL AFTER `end_time`,
-CHANGE COLUMN `start_date_time` `start_date_time` DATETIME(6) NULL DEFAULT NULL ,
-CHANGE COLUMN `end_date_time` `end_date_time` DATETIME(6) NULL DEFAULT NULL ;
-
 
 
 ### verify the cleaned data
