@@ -64,7 +64,7 @@ Uploaded the data to MySQL WorkBench by the following steps:
    ```
 5. Repeated above steps to import the data of all the months from July 2022 to June 2023.
 
-### Data Combination
+### Data Combining
 The steps for combining the monthly data to a single dataset with 12 months of data are given below:
 1. All the datasets are combined and data is save in the table 'tripdata_202207_202306'
    ```
@@ -100,7 +100,7 @@ The steps for combining the monthly data to a single dataset with 12 months of d
    SELECT * FROM tripdata_202207_202306;
    ```
 
-### Data Cleaning and Manipulation
+### Data Cleaning
 1. Looking into the table columns and checking the number of rows.
    ```
    DESCRIBE tripdata_202207_202206
