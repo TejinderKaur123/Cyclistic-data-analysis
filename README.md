@@ -24,88 +24,28 @@ The data-privacy issues prohibit from using rider's personally identifiable info
 I won’t be able to connect pass purchases to credit card numbers to determine if casual riders live in the Cyclistic service area or if they have purchased multiple single passes. There are no bias issues. (The sample of one year of data was used without any criteria)
 ### Data Integrity
 ......
+
+
 ## Process
 Since, the data is available in monthly format. I am combining it as a single dataset with one year of data. I am prefering MySQL over Excel to do so because of the size of the datasets is large. Every single data set has more than 200000 rows. MySQL is faster to process large amount of data as compared to Excel.
 Tool used for cleaning and manipulation: MySQL.
-### Uploading the Data
-Uploaded the data to MySQL WorkBench by the following steps:
-1. Created a Schema.
-   ```
-   CREATE SCHEMA `cyclistic_trip_data` ;
-   ```
-2. Created a table for each dataset. Used the 
-   naming convention 'tripdata_YYYYMM' for naming the tables.
-   ```
-   CREATE TABLE `cyclistics_trip_data`.`tripdata_202207`
-   (
-   `trip_id` VARCHAR(45) NULL,
-   `bike_type` CHAR(20) NULL,
-   `start_date_time` VARCHAR(100) NULL,
-   `end_date_time` VARCHAR(100) NULL,
-   `start_station_name` VARCHAR(100) NULL,
-   `start_station_id` VARCHAR(50) NULL,
-   `end_station_name` VARCHAR(100) NULL,
-   `end_station_id` VARCHAR(50) NULL,
-   `customer_type` CHAR(20) NULL
-   )		
-   ```
-3. Imported the data from the csv file to the consequent table.
-   ```
-   LOAD DATA INFILE 'C:/ProgramData/MySQL/MySQL Server 8.0/Uploads/Cyclistic Trip Data 2022-23/original/202207-divvy- 
-   tripdata.csv'
-   INTO TABLE tripdata_202207
-   FIELDS TERMINATED BY ',' ENCLOSED BY '"'
-   LINES TERMINATED BY '\r\n'
-   IGNORE 1 LINES
-   ```
-4. Checked the table and number of rows of the data imported matched the original data.
-   ```
-   SELECT * FROM tripdata_202306;
-   SELECT count(*) FROM tripdata_202306;
-   ```
-5. Repeated above steps to import the data of all the months from July 2022 to June 2023.
 
+### Uploading the Data
+Uploaded the data to MySQL WorkBench using the following steps:
+1. Created a Schema 'cyclistic_trip_data'.
+2. Created a table for each dataset from July 2022 to June 2023. Used the 
+   naming convention 'tripdata_YYYYMM' for naming the tables.
+3. Imported the data from the csv file to the consequent table.
+4. Checked the table and number of rows of the data imported matched the original data.
+5. Repeated above steps to import the data of all the months from July 2022 to June 2023.
 ### Data Combining
 The steps for combining the monthly data to a single dataset with 12 months of data are given below:
-1. All the datasets are combined and data is saved in the table 'tripdata_202207_202306'
-   ```
-   CREATE TABLE tripdata_202207_202306
-   SELECT * FROM tripdata_202207
-   UNION ALL
-   SELECT * FROM tripdata_202208
-   UNION ALL
-   SELECT * FROM tripdata_202209
-   UNION ALL
-   SELECT * FROM tripdata_202210
-   UNION ALL
-   SELECT * FROM tripdata_202211
-   UNION ALL
-   SELECT * FROM tripdata_202212
-   UNION ALL
-   SELECT * FROM tripdata_202301
-   UNION ALL
-   SELECT * FROM tripdata_202302
-   UNION ALL
-   SELECT * FROM tripdata_202303
-   UNION ALL
-   SELECT * FROM tripdata_202304
-   UNION ALL
-   SELECT * FROM tripdata_202305
-   UNION ALL
-   SELECT * FROM tripdata_202306;
-   ```
-2. Made a copy of the above table. Created a new table and inserted all the values in that table.
-   ```
-   CREATE TABLE tripdata_202207_202206_copy LIKE tripdata_202207_202306;
-   INSERT INTO tripdata_202207_202206_copy 
-   SELECT * FROM tripdata_202207_202306;
-   ```
-
+1. Created the table 'tripdata_202207_202306' and combined all the datasets using 
+   'UNION ALL' and data is saved in the table 'tripdata_202207_202306'.
+2. Made a copy of the above table. Created a new table and inserted all the values in 
+   that table.
 ### Data Cleaning
 1. Looking into the table columns and checking the number of rows.
-   ```
-   DESCRIBE tripdata_202207_202206
-   ```
    Datset has the following column:
    trip_id (varchar)- id of the trip.
    bike_type (char)- has the type of bike used for the ride.	
@@ -116,58 +56,19 @@ The steps for combining the monthly data to a single dataset with 12 months of d
    end_station_name	(varchar)- has the end station name.
    end_station_id	(varchar)- has the end station id.
    customer_type	(char)- has the type of customer using the bike.
-
-   ```
-   SELECT COUNT(*) FROM  tripdata_202207_202206
-   ```
    Total number of rows found: 5779444
 2. Checking for duplicate rows and nulls in trip_id and made it a primary key.
-   ```
-   SELECT COUNT(*) 
-   FROM tripdata_202207_202306 
-   WHERE trip_id IS NULL;
-   ```
    No null values found.
-   ```
-   SELECT * FROM
-	(SELECT trip_id, 
-           ROW_NUMBER() OVER
-           (PARTITION BY trip_id 
-            ORDER BY (SELECT NULL)) AS RowNumber
-	 FROM tripdata_202207_202206) b
-    WHERE RowNumber > 1;
-    ```    
-    Duplicate ids found: 208 values
-    Deleting the rows with duplicate ids after running the select statement inside so I   know what I am deleting. Number of rows returned 
-    after deleting duplicates = 5779236
-    ```
-    DELETE FROM tripdata_202207_202306 a
-    WHERE a.trip_id IN
-    (SELECT trip_id FROM
-    (SELECT
-    trip_id,
-    ROW_NUMBER() OVER
-    (PARTITION BY trip_id 
-    ORDER BY (SELECT NULL)) dup
-    FROM tripdata_202207_202306) b
-    WHERE b.dup > 1);  
-    ```
-
+   Duplicate ids found: 208 values
+   Deleted the rows with duplicate ids after running the select statement inside, to 
+   check what will get deleted. 
+    Number of rows returned after deleting duplicates = 5779236
 3. Fixing the column format. Changed the columns start_date_time and end_date_time 
-   from varchar to datetime. Error found in the year 
-   format of  the date. Some of the years are in 2 digits and some are in 4 digits. 
-   To convert into datetime format the 'Y' takes year 
+   from varchar to datetime.
+   Error found in the year format of  the date. Some of the years are in 2 digits and 
+   some are in 4 digits. To convert into datetime format the 'Y' takes year 
    in 4 digits. Therefore, set the year format to 4 digits by using regex replace 
    function.
-   ```
-   UPDATE tripdata_202207_202306
-   SET start_date_time = REGEXP_REPLACE(start_date_time, '(\\d+\/\\d+\/) 
-   (\\d{2})\\s','$120$2 ');
-
-   UPDATE tripdata_202207_202306
-   SET start_date_time = str_to_date(start_date_time, '%m/%d/%Y %H:%i'),
-   end_date_time = str_to_date(end_date_time, '%m/%d/%Y %H:%i');
-   ```
 4. Checked distinct values of column bike_type and customer_type.
    bike_type has values:
    1. electric_bike.
@@ -176,28 +77,17 @@ The steps for combining the monthly data to a single dataset with 12 months of d
    customer_type has values:
    1. casual.
    2. member.
-   ```
-   SELECT DISTINCT bike_type
-   FROM tripdata_202207_202306;
-
-   SELECT DISTINCT customer_type
-   FROM tripdata_202207_202306;
-   ```
-5. Made a new column for trip_duration to calculate the duration of the ride by subtracting end_date_time and start_date_time.
-   trip_duration has time format.
-   ```
-   UPDATE tripdata_202207_202306
-   SET trip_duration = timediff(end_date_time,start_date_time);
-   ```
-6. Checking the range of the trip_duration column.
+6. Made a new column for trip_duration to calculate the duration of the ride by 
+   subtracting end_date_time and start_date_time.
+7. Checking the range of the trip_duration column.
    Min value of trip duration was negative. Therefore checked the values of 
    trip_duration less than or equal to 0. 88652 records found. 
    Deleted those from the table.
-   The max value of the trip duration is 689 hours 47 mins, which is approximately 29 
-   days and the customer type is casual. 
-7. Made a new column for the day of the week that the ride took place. It gives the 
-   value from 1 to 7. 1 is Sunday and 7 is Friday.
-8. Checked if all the columns have correct data type.
+   The max value of the trip duration is 689 hours 47 mins, which is approximately 
+   29 days and the customer type is casual. 
+8. Made a new column for the day of the week that the ride took place. It gives 
+   the value from 1 to 7. 1 is Sunday and 7 is Friday.
+9. Checked if all the columns have correct data type.
    Datset has the following column and thier data types:
    trip_id              varchar(50)
    bike_type            char(20)
@@ -211,7 +101,32 @@ The steps for combining the monthly data to a single dataset with 12 months of d
    trip_duration        time
    trip_day             varchar(45)
 
-
+10. Split the tripdata_202207_202306 table into two. Separated the station 
+   information into a new table 'trip_station_data'. The tables and thier 
+   datatypes are the following:
+   tripdata_202207_202306
+   -trip_id              varchar(50)
+   -bike_type            char(20)
+   -start_date_time      datetime(6)
+   -end_date_time	datetime(6)
+   -start_station_id	varchar(50)
+   -start_station_name	varchar(100)
+   -end_station_id	varchar(50)
+   -end_station_name	varchar(100)
+   -customer_type	char(45)
+   -trip_duration        time
+   -trip_day             varchar(45)
+   trip_station_data
+   -trip_id              varchar(50)
+   -start_station_id	varchar(50)
+   -start_station_name	varchar(100)
+   -end_station_id	varchar(50)
+   -end_station_name	varchar(100)
    
+## Data Analysis and Visualization
+Tools used:
+Analysis - MySQL
+Visualization - Tableau
+Connected MySQL Server to Tableau.
+![casualmemberproportion](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/75b3e343-df4a-4861-aa1d-2c5515bfffd7)
 
-### verify the cleaned data
