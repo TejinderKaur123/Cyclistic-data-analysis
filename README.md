@@ -8,7 +8,7 @@ Three questions will guide the future marketing program:
 3. How can Cyclistic use digital media to influence casual riders to become members?
 Moreno(The director of the marketing team and my manager) has assigned me the first question to answer: How do annual members and casual riders use Cyclistic bikes differently.
 ### Business Task
-Find out how the annual members and casual riders use the Cyclistic Bikes differently. The answer to this question is crucial to find a marketing stretegy for casual riders to join the annual membership hence increasing the number of members which is the goal for company's success. The stakeholders for this task is Moreno who is The director of the marketing team and my manager.
+Find out how the annual members and casual riders use the Cyclistic Bikes differently. The answer to this question is crucial to find a marketing stretegy for casual riders to join the annual membership which is the goal for company's success. The stakeholders for this task is Cyclistic Executive Team and Moreno who is The director of the marketing team and my manager.
 
 ## Prepare
 I have Cyclistic historical trip data monthly as well as quarterly and station data from past years. I chose the previous 12 months of data to analyse. The datasets cover ride information of every single ride- the ride's start and end time; start and end station id, name and geolocation; type of bike used; customer type. This information will help find the usage differences between casual riders and members.
