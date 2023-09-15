@@ -1,6 +1,7 @@
 # Cyclistic-Data-Analysis
 ## Scenario
-I am a junior data analyst working in the marketing analyst team of Cyclistic - a fictional bike share company in Chicago. The director of marketing believes the company’s future success depends on maximizing the number of annual memberships. Therefore, My team wants to understand how casual riders and annual members use Cyclistic bikes differently. From these insights, My team will design a new marketing strategy to convert casual riders into annual members. I sharing a detailed documentation of the analysis.
+I am a junior data analyst working in the marketing analyst team of Cyclistic - a fictional bike share company in Chicago. The Cyclistic customers who purchase single ride or full-day passes are 'casual riders' whereas the customers who purchase annual memberships are 'members'. The director of marketing believes the company’s future success depends on maximizing the number of annual memberships. Therefore, My team wants to understand how casual riders and annual members use Cyclistic bikes differently. From these insights, My team will design a new marketing strategy to convert casual riders into annual members. But first, Cyclistic executives must approve my recommendations, so they must be backed up with compelling data insights and professional data visualizations. I am sharing detailed documentation of the analysis below.
+
 ## Ask
 Three questions will guide the future marketing program:
 1. How do annual members and casual riders use Cyclistic bikes differently?
@@ -84,7 +85,7 @@ The steps for combining the monthly data to a single dataset with 12 months of d
    trip_duration less than or equal to 0. 88652 records found. 
    Deleted those from the table.
    The max value of the trip duration is 689 hours 47 mins, which is approximately 
-   29 days and the customer type is casual. 
+   29 days and the customer type is casual. ((why I am not deleting the >24 values))
 8. Made a new column for the day of the week that the ride took place. It gives 
    the value from 1 to 7. 1 is Sunday and 7 is Friday.
 9. Checked if all the columns have correct data type.
@@ -128,5 +129,15 @@ Tools used:
 Analysis - MySQL
 Visualization - Tableau
 Connected MySQL Server to Tableau.
-![casualmemberproportion](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/75b3e343-df4a-4861-aa1d-2c5515bfffd7)
+###Intro:
+![intro](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/43892ad2-a9a0-45b5-a905-fb2e28a6a92d)
+###trip/duration
+![trip-duration](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/f7286328-8013-451c-ad4c-ee8b66f9e2d7)
+###Trip count analysis
+![trip count analysis](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/3a22d733-5240-4388-b0db-edcfa4a2925a)
+###Trip Duration Analysis
+![duration analysis](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/af4ae40b-ec23-40d4-b5e7-bbcdf2917d05)
+###Bike type
+![bike type com](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/65f17b30-e9e0-4631-9702-002b6454e34e)
+
 
