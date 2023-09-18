@@ -44,7 +44,7 @@ The steps for combining the monthly data to a single dataset with 12 months of d
 1. Created the table 'tripdata_202207_202306' and combined all the datasets using 
    'UNION ALL' and data is saved in the table 'tripdata_202207_202306'.
 2. Made a copy of the above table. Created a new table and inserted all the values in 
-   that table.
+   the table 'tripdata_202207_202306_copy'.
 ### Data Cleaning
 1. Looking into the table columns and checking the number of rows.
    Datset has the following column:
@@ -129,15 +129,16 @@ Tools used:
 Analysis - MySQL
 Visualization - Tableau
 Connected MySQL Server to Tableau.
-###Intro:
+
+### Intro:
 ![intro](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/43892ad2-a9a0-45b5-a905-fb2e28a6a92d)
-###trip/duration
+### trip/duration
 ![trip-duration](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/f7286328-8013-451c-ad4c-ee8b66f9e2d7)
-###Trip count analysis
+### Trip count analysis
 ![trip count analysis](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/3a22d733-5240-4388-b0db-edcfa4a2925a)
-###Trip Duration Analysis
+### Trip Duration Analysis
 ![duration analysis](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/af4ae40b-ec23-40d4-b5e7-bbcdf2917d05)
-###Bike type
+### Bike type
 ![bike type com](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/65f17b30-e9e0-4631-9702-002b6454e34e)
 
 
