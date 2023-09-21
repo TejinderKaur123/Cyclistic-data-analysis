@@ -130,13 +130,44 @@ Analysis - MySQL
 Visualization - Tableau
 Connected MySQL Server to Tableau.
 
-### Intro:
+### Summary Statistics of Trip Duration
+**Summary statistics of trip duration by customer type:** The average trip duration of casual rider and member was found to be 28.1 mins and 12.6 mins, respectively. *The average trip duration of the casual customer is almost double that of members.* The range of trip duration for casual rider and member is 1min to 689.8 hours and 1 min to 26 hours, respectively. The extremely high value for the casual riders will be discussed later in the analysis.
+
+**Proportion of bike usage:** It is interesting to note that the total number of trips made by the members is higher than the casual riders but the total sum duration of the trips of casual riders is greater than the members, as shown in the pie chart. *This implies that even with the less number of trips casual riders spend more time on the rides than members.*
+
 ![intro](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/43892ad2-a9a0-45b5-a905-fb2e28a6a92d)
-### trip/duration
+
+### Number of Trips by Trip Duration 
+The following dashboard shows the number of trips by duration of the ride for casual and members. 
+
+**Duration 1 to 60 mins:**
+The max number of trips for members are of 5 mins, whereas casual riders are of 6 mins. What’s striking is that for trips with a duration shorter than 30 mins, member riders outnumber casual riders whereas for the trips with a duration longer than 30 mins, casual riders outnumber members.
+
+**Duration 1 hour to 24 hours:** 
+Most of the riders are casual. The number of member riders is extremely low compared to the casual riders. The duration range for member riders is mostly 0 to 4 hours, with some riding between 7 to 8 hours. Casual riders, on the other hand, are spread across the full 24-hour range. This means that some casual riders use the bike for extended periods.
+
 ![trip-duration](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/f7286328-8013-451c-ad4c-ee8b66f9e2d7)
-### Trip count analysis
+
+### Number of Trips by Month, Day of the Week and Hour of the Day
+The following dashboard shows the variation of the trip number by month, day of the week and hour of the day.
+
+**Month:** The maximum number of trips for members occurs in the month of August, and for casual riders in July whereas the minimum number of trips for members occurs in the month of December and for casual riders, in January.
+High volume months:
+Casual: July, August
+Member: June, July, August, September
+Low volume months: 
+Casual: December, January, February, and March.
+Member: December, January, February
+*The trend in the number of trips by casual riders and members is mostly similar. The peak in the member riders in August can mean the students using the bike for commuting because school starts in Chicago in August*. 
+
+**Day of the Week:** It is interesting to note that the trends of number of times members and casual riders use the bike are completely opposite. Casual riders use the bike more on the weekends starting Friday and peaks on Saturday. Members, on the other hand, use the bike more during the weekdays and peaks on Wednesday. The average trip count for members and casual riders is almost the same on Saturday with 8,783 and 8,721 trips respectively. This means *people are using the membership to commute to work and tourists are using the bike casually on the weekends as casual riders*. 
+
+**Hour of the Day:** The average number of trips by casual riders and members peak at 5 pm. *There is a low peak at 8 am for members, showing the usage for going to work*. The number of trips by members is more than casual riders from 4 am to 10 pm and casual rider’s is       more than member’s from 11 pm to 3 pm. *There is a low peak in the number of trip by casual riders at 8 am as well which shows there is a usage of bike by working class as casual riders*.
+
 ![trip count analysis](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/3a22d733-5240-4388-b0db-edcfa4a2925a)
+
 ### Trip Duration Analysis
+
 ![duration analysis](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/af4ae40b-ec23-40d4-b5e7-bbcdf2917d05)
 ### Bike type
 ![bike type com](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/65f17b30-e9e0-4631-9702-002b6454e34e)
