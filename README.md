@@ -167,9 +167,15 @@ Member: December, January, February
 ![trip count analysis](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/3a22d733-5240-4388-b0db-edcfa4a2925a)
 
 ### Trip Duration Analysis
+The following dashboard shows the trip duration of casual rider and member by month, day of the week and hour of the day.
+**Month:** The average trip duration for casual riders and members peaks in June and July respectively, while the casual trip duration is double the member trip duration throughout the year. The minimum average duration for casual riders and members is in November and January respectively.
+**Day of the week:** Average trip duration for both casual and member is longer on the weekends and shorter on the weekdays. The average duration for the casual rider remains double that of the member’s. 
+**Hour of the day:** The longest average rides during the day are taken by casual riders from 12 am to 4 am late-night peaks at 3 am, which is 41.89 mins. The range remains 17.38 to 41.89 mins. The average trip duration for members doesn’t fluctuate much throughout the day with the range between 10.29 mins to 13.1 mins.
 
 ![duration analysis](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/af4ae40b-ec23-40d4-b5e7-bbcdf2917d05)
+
 ### Bike type
+
 ![bike type com](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/65f17b30-e9e0-4631-9702-002b6454e34e)
 
 
