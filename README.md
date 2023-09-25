@@ -71,12 +71,12 @@ The steps for combining the monthly data to a single dataset with 12 months of d
    in 4 digits. Therefore, set the year format to 4 digits by using regex replace 
    function.
 4. Checked distinct values of column bike_type and customer_type.
-   bike_type has values:
-   1. electric_bike.
-   2. docked_bike.
+   bike_type has values:\
+   1. electric_bike.\
+   2. docked_bike.\
    3. classic_bike.
-   customer_type has values:
-   1. casual.
+   customer_type has values:\
+   1. casual.\
    2. member.
 6. Made a new column for trip_duration to calculate the duration of the ride by 
    subtracting end_date_time and start_date_time.
@@ -89,40 +89,40 @@ The steps for combining the monthly data to a single dataset with 12 months of d
 8. Made a new column for the day of the week that the ride took place. It gives 
    the value from 1 to 7. 1 is Sunday and 7 is Friday.
 9. Checked if all the columns have correct data type.
-   Datset has the following column and thier data types:
-   trip_id              varchar(50)
-   bike_type            char(20)
-   start_date_time      datetime(6)
-   end_date_time	datetime(6)
-   start_station_id	varchar(50)
-   start_station_name	varchar(100)
-   end_station_id	varchar(50)
-   end_station_name	varchar(100)
-   customer_type	char(45)
-   trip_duration        time
-   trip_day             varchar(45)
+   Datset has the following column and thier data types:\
+   trip_id-              varchar(50)\
+   bike_type-            char(20)\
+   start_date_time-      datetime(6)\
+   end_date_time-	datetime(6)\
+   start_station_id-	varchar(50)\
+   start_station_name-	varchar(100)\
+   end_station_id-	varchar(50)\
+   end_station_name-	varchar(100)\
+   customer_type-	char(45)\
+   trip_duration-        time\
+   trip_day-             varchar(45)
 
 10. Split the tripdata_202207_202306 table into two. Separated the station 
    information into a new table 'trip_station_data'. The tables and thier 
-   datatypes are the following:
-   tripdata_202207_202306
-   -trip_id              varchar(50)
-   -bike_type            char(20)
-   -start_date_time      datetime(6)
-   -end_date_time	datetime(6)
-   -start_station_id	varchar(50)
-   -start_station_name	varchar(100)
-   -end_station_id	varchar(50)
-   -end_station_name	varchar(100)
-   -customer_type	char(45)
-   -trip_duration        time
-   -trip_day             varchar(45)
-   trip_station_data
-   -trip_id              varchar(50)
-   -start_station_id	varchar(50)
-   -start_station_name	varchar(100)
-   -end_station_id	varchar(50)
-   -end_station_name	varchar(100)
+   datatypes are the following:\
+   **tripdata_202207_202306**\
+    trip_id-              varchar(50)\
+    bike_type-            char(20)\
+    start_date_time-      datetime(6)\
+    end_date_time-	     datetime(6)\
+    start_station_id-	  varchar(50)\
+    start_station_name-	  varchar(100)\
+    end_station_id-	     varchar(50)\
+    end_station_name-	  varchar(100)\
+    customer_type-	     char(45)\
+    trip_duration-        time\
+    trip_day-             varchar(45)\
+   **trip_station_data**
+    trip_id-              varchar(50)\
+    start_station_id-	    varchar(50)\
+    start_station_name-	 varchar(100)\
+    end_station_id-	    varchar(50)\
+    end_station_name-	    varchar(100)
    
 ## Data Analysis and Visualization
 Tools used:
@@ -167,9 +167,9 @@ Member: December, January, February
 ![trip count analysis](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/3a22d733-5240-4388-b0db-edcfa4a2925a)
 
 ### Trip Duration Analysis
-The following dashboard shows the trip duration of casual rider and member by month, day of the week and hour of the day.
-**Month:** The average trip duration for casual riders and members peaks in June and July respectively, while the casual trip duration is double the member trip duration throughout the year. The minimum average duration for casual riders and members is in November and January respectively.
-**Day of the week:** Average trip duration for both casual and member is longer on the weekends and shorter on the weekdays. The average duration for the casual rider remains double that of the member’s. 
+The following dashboard shows the trip duration of casual rider and member by month, day of the week and hour of the day.\
+**Month:** The average trip duration for casual riders and members peaks in June and July respectively, while the casual trip duration is double the member trip duration throughout the year. The minimum average duration for casual riders and members is in November and January respectively.\
+**Day of the week:** Average trip duration for both casual and member is longer on the weekends and shorter on the weekdays. The average duration for the casual rider remains double that of the member’s.\
 **Hour of the day:** The longest average rides during the day are taken by casual riders from 12 am to 4 am late-night peaks at 3 am, which is 41.89 mins. The range remains 17.38 to 41.89 mins. The average trip duration for members doesn’t fluctuate much throughout the day with the range between 10.29 mins to 13.1 mins.
 
 ![duration analysis](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/af4ae40b-ec23-40d4-b5e7-bbcdf2917d05)
