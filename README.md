@@ -175,7 +175,7 @@ The following dashboard shows the trip duration of casual rider and member by mo
 ![duration analysis](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/af4ae40b-ec23-40d4-b5e7-bbcdf2917d05)
 
 ### Bike type
-
+The usage of bike types used by casual riders and members is shown in the pie chart below. The only difference I see is that the casual riders use docked bikes whereas members do not use it at all.
 ![bike type com](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/65f17b30-e9e0-4631-9702-002b6454e34e)
 
 
