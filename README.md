@@ -22,7 +22,7 @@ The dataset is public and is made available by Motivate International Inc. This 
 
 ### Data Privacy and Bias Issues
 The data-privacy issues prohibit from using rider's personally identifiable information. This means that
-I won’t be able to connect pass purchases to credit card numbers to determine if casual riders live in the Cyclistic service area or if they have purchased multiple single passes. There are no bias issues. (The sample of one year of data was used without any criteria)
+I won’t be able to connect pass purchases to credit card numbers to determine if casual riders live in the Cyclistic service area or if they have purchased multiple single passes. There are no bias issues. The sample of one year of data was used without any criteria.
 ### Data Integrity
 ......
 
@@ -47,34 +47,34 @@ The steps for combining the monthly data to a single dataset with 12 months of d
    the table 'tripdata_202207_202306_copy'.
 ### Data Cleaning
 1. Looking into the table columns and checking the number of rows.
-   Datset has the following column:
-   trip_id (varchar)- id of the trip.
-   bike_type (char)- has the type of bike used for the ride.	
-   start_date_time (varchar)- has the start date and time of the ride.
-   end_date_time	(varchar)- has the end date and time of the ride.	
-   start_station_name	(varchar)- has the start station name.
-   start_station_id	(varchar)- has the start station id.
-   end_station_name	(varchar)- has the end station name.
-   end_station_id	(varchar)- has the end station id.
-   customer_type	(char)- has the type of customer using the bike.
+   Datset has the following column:\
+   trip_id (varchar)- id of the trip.\
+   bike_type (char)- has the type of bike used for the ride.\	
+   start_date_time (varchar)- has the start date and time of the ride.\
+   end_date_time	(varchar)- has the end date and time of the ride.\	
+   start_station_name	(varchar)- has the start station name.\
+   start_station_id	(varchar)- has the start station id.\
+   end_station_name	(varchar)- has the end station name.\
+   end_station_id	(varchar)- has the end station id.\
+   customer_type	(char)- has the type of customer using the bike.\
    Total number of rows found: 5779444
 2. Checking for duplicate rows and nulls in trip_id and made it a primary key.
    No null values found.
    Duplicate ids found: 208 values
    Deleted the rows with duplicate ids after running the select statement inside, to 
    check what will get deleted. 
-    Number of rows returned after deleting duplicates = 5779236
+   Number of rows returned after deleting duplicates = 5779236
 3. Fixing the column format. Changed the columns start_date_time and end_date_time 
    from varchar to datetime.
    Error found in the year format of  the date. Some of the years are in 2 digits and 
    some are in 4 digits. To convert into datetime format the 'Y' takes year 
    in 4 digits. Therefore, set the year format to 4 digits by using regex replace 
    function.
-4. Checked distinct values of column bike_type and customer_type.
-   bike_type has values:\
+4. Checked distinct values of column bike_type and customer_type.\
+   bike_type has values: \
    1. electric_bike.\
    2. docked_bike.\
-   3. classic_bike.
+   3. classic_bike.\
    customer_type has values:\
    1. casual.\
    2. member.
@@ -125,9 +125,9 @@ The steps for combining the monthly data to a single dataset with 12 months of d
     end_station_name-	    varchar(100)
    
 ## Data Analysis and Visualization
-Tools used:
-Analysis - MySQL
-Visualization - Tableau
+Tools used:\
+Analysis - MySQL\
+Visualization - Tableau\
 Connected MySQL Server to Tableau.
 
 ### Summary Statistics of Trip Duration
@@ -162,7 +162,7 @@ Member: December, January, February
 
 **Day of the Week:** It is interesting to note that the trends of number of times members and casual riders use the bike are completely opposite. Casual riders use the bike more on the weekends starting Friday and peaks on Saturday. Members, on the other hand, use the bike more during the weekdays and peaks on Wednesday. The average trip count for members and casual riders is almost the same on Saturday with 8,783 and 8,721 trips respectively. This means *people are using the membership to commute to work and tourists are using the bike casually on the weekends as casual riders*. 
 
-**Hour of the Day:** The average number of trips by casual riders and members peak at 5 pm. *There is a low peak at 8 am for members, showing the usage for going to work*. The number of trips by members is more than casual riders from 4 am to 10 pm and casual rider’s is       more than member’s from 11 pm to 3 pm. *There is a low peak in the number of trip by casual riders at 8 am as well which shows there is a usage of bike by working class as casual riders*.
+**Hour of the Day:** The average number of trips by casual riders and members peak at 5 pm. *There is a low peak at 8 am for members, showing the usage for going to work*. On the other hand, Number of trips by casual riders start rising gradually from 5 am to 5 pm. The number of trips by members is more than casual riders from 4 am to 10 pm and casual rider’s is       more than member’s from 11 pm to 3 pm. *There is a low peak in the number of trips by casual riders at 8 am as well which shows there is a possibility of usage of bike by working class as casual riders*.
 
 ![trip count analysis](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/3a22d733-5240-4388-b0db-edcfa4a2925a)
 
@@ -177,5 +177,20 @@ The following dashboard shows the trip duration of casual rider and member by mo
 ### Bike type
 The usage of bike types used by casual riders and members is shown in the pie chart below. The only difference I see is that the casual riders use docked bikes whereas members do not use it at all.
 ![bike type com](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/65f17b30-e9e0-4631-9702-002b6454e34e)
+### Trip duration more than 24 hours
+There are less than 1% of the riders who used the bike for more than 24 hours. 84.5% of these riders are casual and 15.5% are members. 80% of those casual customers riders ride for 24 to 36 hours.    
 
+![final](https://github.com/TejinderKaur123/Cyclistic-data-analysis/assets/50061662/1b74f9a3-a21e-46f4-a181-aed1ae6f3cdb)
 
+### Key Findings
+Here are the key findings showing the main differences between the usage of the bike by casual riders and members 
+1. The average trip duration of the casual customer is 2.2 times that of the members. The average duration for casual riders remain double and some times even more than double over the weekend and late night 12 am to 4 am according to the weekly and hourly analysis. Even with the less number of trips casual riders spend more time on the rides than members.
+2. For the trips shorter than 30 mins, member riders outnumber casual riders whereas for the trips longer than 30 mins, Casual rider out number members. For the rides ranging 1 to 24 hours, riders are mostly casual customers. This means casual riders use it for extented periods. 
+3. Workers and students use the membership  to commute to work whereas tourists use the bike as casual riders according to the weekly 
+ and hourly analysis of trip count. Casual riders use the bike more on the weekends starting Friday whereas members use the bike more during the weekdays. 
+4. 84% of the riders using the bike for more than 24 hours are casual riders and 15% are members. This means there are more chances that a casual rider will use the bike for more than 24 hours.
+5. Only casual riders are using docked bikes. Members are not using them at all.
+## Act
+1. For the visualizations, it seems like there are still some working class travelling as casual riders. A better broadcast of the membership scheme will be helpful in converting casual riders to members.
+2. There should be some changes in the membership plans making it beneficial for tourists as well.
+3. There should be a take home advantage in the membership plan for the tourists/ worker to take the bike for more than 24 hours. 
