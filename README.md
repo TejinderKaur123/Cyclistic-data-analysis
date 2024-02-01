@@ -42,84 +42,89 @@ The steps for combining the monthly data to a single dataset with 12 months of d
 2. Made a copy of the above table. Created a new table and inserted all the values in 
    the table 'tripdata_202207_202306_copy'.
 ### Data Cleaning
-1. Looking into the table columns and checking the number of rows.
-   Datset has the following column:\
-   trip_id (varchar)- id of the trip.\
-   bike_type (char)- has the type of bike used for the ride.\	
-   start_date_time (varchar)- has the start date and time of the ride.\
-   end_date_time	(varchar)- has the end date and time of the ride.\	
-   start_station_name	(varchar)- has the start station name.\
-   start_station_id	(varchar)- has the start station id.\
-   end_station_name	(varchar)- has the end station name.\
-   end_station_id	(varchar)- has the end station id.\
-   customer_type	(char)- has the type of customer using the bike.\
-   Total number of rows found: 5779444
-2. Checking for duplicate rows and nulls in trip_id and made it a primary key.
-   No null values found.
-   Duplicate ids found: 208 values
-   Deleted the rows with duplicate ids after running the select statement inside, to 
-   check what will get deleted. 
-   Number of rows returned after deleting duplicates = 5779236
-3. Fixing the column format. Changed the columns start_date_time and end_date_time 
-   from varchar to datetime.
-   Error found in the year format of  the date. Some of the years are in 2 digits and 
-   some are in 4 digits. To convert into datetime format the 'Y' takes year 
-   in 4 digits. Therefore, set the year format to 4 digits by using regex replace 
-   function.
-4. Checked distinct values of column bike_type and customer_type.\
-   bike_type has values: \
-   1. electric_bike.\
-   2. docked_bike.\
-   3. classic_bike.\
-   customer_type has values:\
-   1. casual.\
-   2. member.
-6. Made a new column for trip_duration to calculate the duration of the ride by 
-   subtracting end_date_time and start_date_time.
-7. Checking the range of the trip_duration column.
-   Min value of trip duration was negative. Therefore checked the values of 
-   trip_duration less than or equal to 0. 88652 records found. 
-   Deleted those from the table.
-   The max value of the trip duration is 689 hours 47 mins, which is approximately 
-   29 days and the customer type is casual. ((why I am not deleting the >24 values))
-8. Made a new column for the day of the week that the ride took place. It gives 
-   the value from 1 to 7. 1 is Sunday and 7 is Friday.
-9. Checked if all the columns have correct data type.
-   Datset has the following column and thier data types:\
-   trip_id-              varchar(50)\
-   bike_type-            char(20)\
-   start_date_time-      datetime(6)\
-   end_date_time-	datetime(6)\
-   start_station_id-	varchar(50)\
-   start_station_name-	varchar(100)\
-   end_station_id-	varchar(50)\
-   end_station_name-	varchar(100)\
-   customer_type-	char(45)\
-   trip_duration-        time\
-   trip_day-             varchar(45)
+1. **Looking into the table columns and checking the number of rows.**
+   The dataset has the following columns:
 
-10. Split the tripdata_202207_202306 table into two. Separated the station 
-   information into a new table 'trip_station_data'. The tables and thier 
-   datatypes are the following:\
-   **tripdata_202207_202306**\
-    trip_id-              varchar(50)\
-    bike_type-            char(20)\
-    start_date_time-      datetime(6)\
-    end_date_time-	     datetime(6)\
-    start_station_id-	  varchar(50)\
-    start_station_name-	  varchar(100)\
-    end_station_id-	     varchar(50)\
-    end_station_name-	  varchar(100)\
-    customer_type-	     char(45)\
-    trip_duration-        time\
-    trip_day-             varchar(45)\
-   **trip_station_data**
-    trip_id-              varchar(50)\
-    start_station_id-	    varchar(50)\
-    start_station_name-	 varchar(100)\
-    end_station_id-	    varchar(50)\
-    end_station_name-	    varchar(100)
+   - `trip_id` (varchar) - ID of the trip.
+   - `bike_type` (char) - Type of bike used for the ride.
+   - `start_date_time` (varchar) - Start date and time of the ride.
+   - `end_date_time` (varchar) - End date and time of the ride.
+   - `start_station_name` (varchar) - Start station name.
+   - `start_station_id` (varchar) - Start station ID.
+   - `end_station_name` (varchar) - End station name.
+   - `end_station_id` (varchar) - End station ID.
+   - `customer_type` (char) - Type of customer using the bike.
    
+   Total number of rows found: 5,779,444
+
+2. **Checking for duplicate rows and nulls in `trip_id` and made it a primary key.**
+   - No null values found.
+   - Duplicate ids found: 208 values.
+   - Deleted the rows with duplicate ids after running the select statement inside to check what will get deleted. 
+   - Number of rows returned after deleting duplicates = 5,779,236
+
+3. **Fixing the column format. Changed the columns `start_date_time` and `end_date_time` from varchar to datetime.**
+   - Error found in the year format of the date. Some of the years are in 2 digits and some are in 4 digits. 
+   - To convert into datetime format, the 'Y' takes year in 4 digits. Therefore, set the year format to 4 digits by using regex replace function.
+
+4. **Checked distinct values of columns `bike_type` and `customer_type`.**
+   - `bike_type` has values:
+      1. electric_bike.
+      2. docked_bike.
+      3. classic_bike.
+
+   - `customer_type` has values:
+      1. casual.
+      2. member.
+
+5. **Made a new column for `trip_duration` to calculate the duration of the ride by subtracting `end_date_time` and `start_date_time`.**
+
+6. **Checking the range of the `trip_duration` column.**
+   - Min value of trip duration was negative. Checked the values of `trip_duration` less than or equal to 0. 
+   - 88,652 records found. Deleted those from the table.
+   - The max value of the trip duration is 689 hours 47 mins, which is approximately 29 days, and the customer type is casual.
+
+7. **Made a new column for the day of the week that the ride took place.**
+   - It gives the value from 1 to 7. 1 is Sunday and 7 is Friday.
+
+8. **Checked if all the columns have correct data type.**
+   The dataset has the following columns and their data types:
+
+   - `trip_id`            : varchar(50)
+   - `bike_type`          : char(20)
+   - `start_date_time`    : datetime(6)
+   - `end_date_time`      : datetime(6)
+   - `start_station_id`   : varchar(50)
+   - `start_station_name` : varchar(100)
+   - `end_station_id`     : varchar(50)
+   - `end_station_name`   : varchar(100)
+   - `customer_type`      : char(45)
+   - `trip_duration`      : time
+   - `trip_day`           : varchar(45)
+
+9. **Split the `tripdata_202207_202306` table into two. Separated the station information into a new table named `trip_station_data`.**
+   - The tables and their data types are the following:
+
+   **`tripdata_202207_202306`**
+   - `trip_id`            : varchar(50)
+   - `bike_type`          : char(20)
+   - `start_date_time`    : datetime(6)
+   - `end_date_time`      : datetime(6)
+   - `start_station_id`   : varchar(50)
+   - `start_station_name` : varchar(100)
+   - `end_station_id`     : varchar(50)
+   - `end_station_name`   : varchar(100)
+   - `customer_type`      : char(45)
+   - `trip_duration`      : time
+   - `trip_day`           : varchar(45)
+
+   **`trip_station_data`**
+   - `trip_id`            : varchar(50)
+   - `start_station_id`   : varchar(50)
+   - `start_station_name` : varchar(100)
+   - `end_station_id`     : varchar(50)
+   - `end_station_name`   : varchar(100)
+     
 ## Data Analysis and Visualization
 Tools used:\
 Analysis - MySQL\
