@@ -186,12 +186,21 @@ There are less than 1% of the riders who used the bike for more than 24 hours. 8
 ### Key Findings
 Here are the key findings showing the main differences between the usage of the bike by casual riders and members 
 1. The average trip duration of the casual customer is 2.2 times that of the members. The average duration for casual riders remain double and some times even more than double over the weekend and late night 12 am to 4 am according to the weekly and hourly analysis. Even with the less number of trips casual riders spend more time on the rides than members.
-2. For the trips shorter than 30 mins, member riders outnumber casual riders whereas for the trips longer than 30 mins, Casual rider out number members. For the rides ranging 1 to 24 hours, riders are mostly casual customers. This means casual riders use it for extented periods. 
+   
+2. For the trips shorter than 30 mins, member riders outnumber casual riders whereas for the trips longer than 30 mins, Casual rider out number members. For the rides ranging 1 to 24 hours, riders are mostly casual customers. This means casual riders use it for extented periods.
+   
 3. Workers and students use the membership  to commute to work whereas tourists use the bike as casual riders according to the weekly 
- and hourly analysis of trip count. Casual riders use the bike more on the weekends starting Friday whereas members use the bike more during the weekdays. 
+ and hourly analysis of trip count. Casual riders use the bike more on the weekends starting Friday whereas members use the bike more during the weekdays.
+
 4. 84% of the riders using the bike for more than 24 hours are casual riders and 15% are members. This means there are more chances that a casual rider will use the bike for more than 24 hours.
-5. Only casual riders are using docked bikes. Members are not using them at all.
+
+5. Docked bikes are exclusively used by casual riders; members do not utilize them at all.
+
 ## Act
-1. For the visualizations, it seems like there are still some working class travelling as casual riders. A better broadcast of the membership scheme will be helpful in converting casual riders to members.
-2. There should be some changes in the membership plans making it beneficial for tourists as well.
-3. There should be a take home advantage in the membership plan for the tourists/ worker to take the bike for more than 24 hours. 
+
+1. Regarding the visualizations, it appears that there are still working-class individuals who travel as casual riders. A more effective promotion of the membership scheme could be beneficial in converting casual riders to members.
+
+2. Consider making changes to the membership plans to make them more attractive and beneficial for tourists.
+
+3. Provide additional advantages in the membership plan for tourists or workers, encouraging them to take the bike for periods longer than 24 hours.
+
